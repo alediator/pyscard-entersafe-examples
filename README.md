@@ -22,6 +22,7 @@ Pyscard is the python smartcard library you need to execute this examples
 ## entersafe exercices ##
 
 * GET CHALLENGE
+* SELECT FILE
 
 ### GET CHALLENGE ###
 
@@ -44,3 +45,15 @@ Challenge is BB A2 E1 F1 AC 50 23 09
 disconnecting from C3PO LTC31 (80060327) 00 00
 ~$
 </pre>
+
+### SELECT FILE ###
+
+Complete the code:
+<pre>
+    # TODO:
+    # 62 83 Invalid selected file
+    # 69 85 Insufficient condition for using the command
+    # 6A 81 Not supported function
+    # 6A 82 File not found
+    # 6A 86 Invalid P1/P2
+    # 6E 00 Invalid CLA</pre>
