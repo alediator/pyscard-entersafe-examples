@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-Sample script that tries to execute a GET CHALLENGE command in a FTCOS PKI Card.
+Sample script that tries to execute a SELECT FILE command in a FTCOS PKI Card.
 
 __author__ = "http:www.emergya.es"
 
@@ -27,37 +27,20 @@ from smartcard.util import toHexString
 from entersafeBase import *
 
 # define the apdus used in this script
-GET_RESPONSE = [0x00, 0xC0, 0x00, 0x00]
-# apdu bytes
-CLA=0x00
-INS=0x84
-P1=0x00
-P2=0x00
-# LE get challenge (challenge length)
-LE=0x08
-# apdu get challenge
-GET_CHALLENGE = [CLA, INS, P1, P2, LE]
 
-def entersafe_manage_get_challenge(response, sw1, sw2):
+
+def entersafe_manage_select_file(response, sw1, sw2):
 
     # there is a OK
     if sw1 == SW1_EXPECTED:
-	print 'Challenge is', toHexString(response)
+	print 'Selected file is', toHexString(response)
+    else:
+	print 'Not mapped response (sw1,sw2)=(', hex(sw1), ',', hex(sw2), ')'
 
-    else: 
-	if sw1==0x67:
-		print 'Incorrect length'
-	else: 
-		if sw1 == 0x6e:
-				print 'Invalid CLA'
-		else: 
-			if sw1 == 0x6A:
-				if sw2 == 0x86:
-					print 'Invalid P1/P2'
-			else:
-				print 'No entersafe'
-			
-
-def entersafe_get_challenge(cardservice):
-
-    return test_apdu(GET_CHALLENGE, cardservice)
+    # TODO:
+    # 62 83 Invalid selected file
+    # 69 85 Insufficient condition for using the command
+    # 6A 81 Not supported function
+    # 6A 82 File not found
+    # 6A 86 Invalid P1/P2
+    # 6E 00 Invalid CLA
